@@ -1,0 +1,22 @@
+set echo on
+set tab off
+set serveroutput on
+
+REM 조건 분기문
+declare
+ v_cnt number;
+ v_type string(10);
+begin
+ -- 테이블 emp가 생성되어 있는지 확인한다.
+ -- 딕셔너리 뷰 user_tables에는 계정에 생성된 모든 테이블 목록이 들어있다.
+ select count(*)
+ into v_cnt
+ from user_tables
+ where table_name = 'EMP';
+ 
+ if v_cnt > 0 then --테이블이 user_tables에 등록되어있으면 0보다 크다.
+  dbms_output.put_line('테이블 emp가 존재합니다.');
+ else -- count가 0이면 테이블이 존재하지 않는 경우다.
+  dbms_output.put_line('테이블 emp가 존재하지 않습니다.');
+ end if;
+end;
